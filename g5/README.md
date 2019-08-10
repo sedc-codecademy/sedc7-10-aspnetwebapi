@@ -10,52 +10,52 @@ Welcome to the ASP.NET WebAPI Subject. Through out this subject we will learn to
 ## Agenda 🎯
 This is the base agenda for this subject. The agenda is flexible and will evolve and change based on the progress that we make through out the classes. 
 1. Building APIs
- * What is an API
- * What is REST
- * Where and how we can use APIs
- * Setup of an ASP.NET Core WebApi project
- * Structure of an ASP.NET Core WebApi project
+  * What is an API
+  * What is REST
+  * Where and how we can use APIs
+  * Setup of an ASP.NET Core WebApi project
+  * Structure of an ASP.NET Core WebApi project
 2. WebApi basics
- * Routing
- * Controllers and actions
- * HTTP requests
- * HTTP status codes
- * Working with HTTP data
+  * Routing
+  * Controllers and actions
+  * HTTP requests
+  * HTTP status codes
+  * Working with HTTP data
 3. Helpful tools for API development
- * Why we need tools
- * What is postman
- * Sending requests with postman
- * What is swagger
- * Setup swagger in an application
+  * Why we need tools
+  * What is postman
+  * Sending requests with postman
+  * What is swagger
+  * Setup swagger in an application
 4. WebApi basics
- * Routing
- * Controllers and actions
- * HTTP requests
- * HTTP status codes
- * Working with HTTP data
+  * Routing
+  * Controllers and actions
+  * HTTP requests
+  * HTTP status codes
+  * Working with HTTP data
 5. Authentication in APIs
- * Why and where to use authentication
- * Encryption of data in asp.net
- * What are JWT tokens
- * How to authenticate with JWT tokens
- * What is OAuth ( 2.0 )
+  * Why and where to use authentication
+  * Encryption of data in asp.net
+  * What are JWT tokens
+  * How to authenticate with JWT tokens
+  * What is OAuth ( 2.0 )
 6. WebApi basics
- * Routing
- * Controllers and actions
- * HTTP requests
- * HTTP status codes
- * Working with HTTP data
+  * Routing
+  * Controllers and actions
+  * HTTP requests
+  * HTTP status codes
+  * Working with HTTP data
 7. Testing
- * Why is testing important
- * Role of QA and Developer in the testing process
- * What types of tests exist
- * What are unit tests
- * Writing unit tests with Visual Studio
+  * Why is testing important
+  * Role of QA and Developer in the testing process
+  * What types of tests exist
+  * What are unit tests
+  * Writing unit tests with Visual Studio
 8. The other side of a project with WebApi application
- * What can we use to access our API
- * Attaching a console application
- * Attaching a frontend application
- * Attaching another API ( Micro Services )
+  * What can we use to access our API
+  * Attaching a console application
+  * Attaching a frontend application
+  * Attaching another API ( Micro Services )
 ## Contact and Communication 📢
 Learning programming and software development is a team effort. This means that we are a team and going through this process we will need to work together so that we can succeed. Communication is a key point in this process so please, give feedback for the lectures and communicate any problems that you might have with us so that we can try and improve the quality of the lectures. You can contact us at:
 * Dragan Gelevski : gdragan6@gmail.com
