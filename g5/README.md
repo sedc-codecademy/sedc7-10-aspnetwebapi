@@ -27,31 +27,19 @@ This is the base agenda for this subject. The agenda is flexible and will evolve
   * Sending requests with postman
   * What is swagger
   * Setup swagger in an application
-4. WebApi basics
-  * Routing
-  * Controllers and actions
-  * HTTP requests
-  * HTTP status codes
-  * Working with HTTP data
-5. Authentication in APIs
+4. Authentication in APIs
   * Why and where to use authentication
   * Encryption of data in asp.net
   * What are JWT tokens
   * How to authenticate with JWT tokens
   * What is OAuth ( 2.0 )
-6. WebApi basics
-  * Routing
-  * Controllers and actions
-  * HTTP requests
-  * HTTP status codes
-  * Working with HTTP data
-7. Testing
+5. Testing and Quality Assurance
   * Why is testing important
   * Role of QA and Developer in the testing process
   * What types of tests exist
   * What are unit tests
   * Writing unit tests with Visual Studio
-8. The other side of a project with WebApi application
+6. The other side of a project with WebApi application
   * What can we use to access our API
   * Attaching a console application
   * Attaching a frontend application
