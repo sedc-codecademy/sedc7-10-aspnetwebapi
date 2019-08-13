@@ -12,6 +12,7 @@ APIs are very useful because they are independent of the client. This means that
 Since the rules and concept of an API are not connected to any particular programming language or framework we can build them with any back-end language. To build an API in .NET is pretty easy because ASP.NET supports building WebAPI applications and gives us libraries and tools to build them easier and faster. The WebAPI project is very similar to the MVC project with some differences in configuration and the lack of views. 
 ### Setup 🔽
 To create a WebAPI project in ASP.NET Core we need to first select the ASP.NET Core Web Application template. When we select this template we will get the usual options. Here we select the API option. This creates a template of an API web application the same as it did with MVC. It creates the configurations, the folder structure as well as a starter controller and actions.
+
 ![Structure of WebAPI Project](https://github.com/sedc-codecademy/sedc7-10-aspnetwebapi/blob/master/g5/Class%201/img/03_Api.PNG?raw=true)
 ## Extra Materials 📘
 * [What exactly is an API](https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f)
