@@ -1,5 +1,5 @@
 # Welcome to the ASP.NET WebAPI Subject
-Welcome to the ASP.NET WebAPI Subject. Through out this subject we will learn to create an end-to end web application, but without UI. Tis application acts as a service to other applications or maybe a separate UI component. The web applications will be built with the ASP.NET framework for building WebAPI applications. We will use C# and MSSQL to create the application. At the end of this course you will be able to implement a complete WebAPI solutionsl. 
+Welcome to the ASP.NET WebAPI Subject. Through out this subject we will learn to create an end-to end web application, but without UI. Tis application acts as a service to other applications or maybe a separate UI component. The web applications will be built with the ASP.NET framework for building WebAPI applications. We will use C# and MSSQL to create the application. At the end of this course you will be able to implement a complete WebAPI solutions. 
 ## Prerequisites for this Subject 🗺
 1. Knowledge of C# and it's features
 2. Knowledge of ASP.NET MVC and its features
@@ -8,7 +8,7 @@ Welcome to the ASP.NET WebAPI Subject. Through out this subject we will learn to
 5. [Updated Visual Studio 2017 with all necessary features](https://github.com/sedc-codecademy/sedc7-08-aspnetmvc/blob/master/g5/AddVisualStudioFeatures.md)
 
 ## Agenda 🎯
-This is the base agenda for this subject. The agenda is flexible and will evolve and change based on the progress that we make through out the classes. 
+This is the base agenda for this subject. The agenda is flexible and will evolve and change based on the progress that we make throughout the classes. 
 1. Building APIs
   * What is an API
   * What is REST
