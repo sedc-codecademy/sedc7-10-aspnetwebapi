@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorWebApi", "CalculatorWebApi\CalculatorWebApi.csproj", "{DF5DF30E-9305-47A8-AF1D-8CA74576E841}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringinizerWebApi", "StringinizerWebApi\StringinizerWebApi.csproj", "{1092D378-E45B-42F6-98D1-8BD3823353FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DF5DF30E-9305-47A8-AF1D-8CA74576E841}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF5DF30E-9305-47A8-AF1D-8CA74576E841}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF5DF30E-9305-47A8-AF1D-8CA74576E841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1092D378-E45B-42F6-98D1-8BD3823353FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1092D378-E45B-42F6-98D1-8BD3823353FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1092D378-E45B-42F6-98D1-8BD3823353FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1092D378-E45B-42F6-98D1-8BD3823353FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

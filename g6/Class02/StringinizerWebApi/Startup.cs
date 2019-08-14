@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace CalculatorWebApi
+namespace StringinizerWebApi
 {
     public class Startup
     {
@@ -41,7 +41,6 @@ namespace CalculatorWebApi
                 app.UseHsts();
             }
 
-            // [sw] these commands are needed to use static files
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
