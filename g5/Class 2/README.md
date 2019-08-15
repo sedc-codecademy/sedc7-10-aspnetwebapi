@@ -60,8 +60,10 @@ HTTP Requests and responses are consisted of two parts:
 	* Request Line - The first line where we define the HTTP method, URI and version ( ex: GET /home.html HTTP/1.1 )
 	* Other Request Headers - Other data such as:\
 		* Host - The server domain name
-		* Accept-Language - 
-		* User-Agent - What application type 
+		* Accept-Language - Langugage that the client understands
+		* User-Agent - what application is sending the request
+		* Content-type - The type of data
+		
 * Body - The body is optional and it contains the data that we need sent ( XML, JSON )
 ##### Example of an HTTP Request GET
 ```http
