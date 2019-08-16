@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebApiApp.Controllers
 {
@@ -43,5 +45,73 @@ namespace WebApiApp.Controllers
                 }
             }
         };
+
+        [HttpGet]
+        public ActionResult<List<Note>> Get()
+        {
+            return notes;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Note> Get(int id)
+        {
+            try
+            {
+                return notes[id - 1];
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"The note with id {id} is not found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"BROKEN : {ex.Message}");
+            }
+        }
+        [HttpPost]
+        public IActionResult Post()
+        {
+            string body;
+            using(StreamReader sr = new StreamReader(Request.Body))
+            {
+                body = sr.ReadToEnd();
+            }
+            Note note = JsonConvert.DeserializeObject<Note>(body);
+            notes.Add(note);
+            return Ok($"Note with id {notes.Count} added!");
+        }
+        [HttpGet("{id}/tags")]
+        public ActionResult<List<Tag>> Tags(int id)
+        {
+            try
+            {
+                return notes[id - 1].Tags;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"The note with id {id} is not found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"BROKEN : {ex.Message}");
+            }
+        }
+        [HttpGet("{noteId}/tags/{tagId}")]
+        public ActionResult<Tag> Tags(int noteId, int tagId)
+        {
+            try
+            {
+                return notes[noteId - 1].Tags[tagId - 1];
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"The note with id {noteId} or " +
+                    $"tag with {tagId}is not found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"BROKEN : {ex.Message}");
+            }
+        }
     }
 }

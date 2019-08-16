@@ -35,6 +35,10 @@ namespace WebApiApp
                 app.UseDeveloperExceptionPage();
             }
 
+            // We need these to open our HTMLs
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseMvc();
         }
     }

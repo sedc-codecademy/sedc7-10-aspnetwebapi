@@ -6,7 +6,7 @@ let getTagByIdBtn = document.getElementById("btn5");
 let getByIdInput = document.getElementById("input2");
 let addNoteInput = document.getElementById("input3");
 
-let port = "53222";
+let port = "61566";
 let getAllNotes = async () => {
     let url = "http://localhost:" + port + "/api/notes";
 
