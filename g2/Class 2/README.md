@@ -123,10 +123,10 @@ Content-Type: text/html
 When we send a request to a server we always get some info about what happened with our request. This info is in a form of a Status Code. Status codes represent what happened with our request in a form of a 3 digit number. There are two parts of a status code:
 * First digit - Representing the category of the Status
 * Other two digits - Representing a specific type result from that category
-![Status Codes](https://github.com/sedc-codecademy/sedc7-10-aspnetwebapi/blob/master/g5/Class%202/img/statuscodes2.png?raw=true)
+![Status Codes](https://github.com/sedc-codecademy/sedc7-10-aspnetwebapi/blob/master/g2/Class%202/img/statuscodes2.png?raw=true)
 
 #### Categories 🔽
-![Status Code Types](https://github.com/sedc-codecademy/sedc7-10-aspnetwebapi/blob/master/g5/Class%202/img/statuscodes1.jpg?raw=true)
+![Status Code Types](https://github.com/sedc-codecademy/sedc7-10-aspnetwebapi/blob/master/g2/Class%202/img/statuscodes1.jpg?raw=true)
 
 ### Handling Status Codes in ASP.NET Core 🔽
 Status codes are a good way to tell the client what the result from their request would be. We can use status codes in our API applications in our actions. This can be done in multiple ways:
