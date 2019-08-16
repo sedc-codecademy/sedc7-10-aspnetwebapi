@@ -156,7 +156,21 @@ public ActionResult<string> Get(int id)
     return _users.GetById(id).Name;
 }
 ```
-
+### Handling data from Body in ASP.NET Core 🔽
+When we receive some data from the client we need to handle it somehow. We can use the **Request** object where we can find all information about the request as well as extract the body data that was sent
+```csharp asp
+[HttpPost]
+public void Post()
+{
+    using (StreamReader reader = new StreamReader(Request.Body))
+    {
+        string body = reader.ReadToEnd();
+        ...
+        ...
+    }
+    var check = user;
+}
+```
 ## Extra Materials 📘
 * [Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#Information_responses)
 * [HTTP Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
