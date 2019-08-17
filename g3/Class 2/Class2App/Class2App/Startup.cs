@@ -19,7 +19,12 @@ namespace Class2App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(c =>
+            {
+                c.RespectBrowserAcceptHeader = true;
+                c.InputFormatters.Add(new XmlSerializerInputFormatter(new MvcOptions()));
+                c.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
