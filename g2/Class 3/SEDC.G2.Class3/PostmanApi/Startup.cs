@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace SEDC.G5.Class3
+namespace PostmanApi
 {
     public class Startup
     {
