@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Facebook.WebApi2_0.ViewModels;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -29,5 +30,21 @@ namespace Facebook.WebApi2_0.Models
         [Required]
         [JsonConverter(typeof(StringEnumConverter))]
         public Gender? Gender { get; set; }
+
+        public static User FromViewModel(UpdateUserViewModel viewModel)
+        {
+            if (viewModel == null)
+                return null;
+
+            return new User
+            {
+                Birthday = viewModel.Birthday,
+                Email = viewModel.Email,
+                FirstName = viewModel.FirstName,
+                Gender = viewModel.Gender,
+                LastName = viewModel.LastName,
+                Password = viewModel.Password
+            };
+        }
     }
 }
