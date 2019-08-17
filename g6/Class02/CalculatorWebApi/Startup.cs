@@ -41,7 +41,8 @@ namespace CalculatorWebApi
                 app.UseHsts();
             }
 
-            // [sw] these commands are needed to use static files
+            // [SW] these commands are needed to use static files
+            // They need to be in this exact order
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

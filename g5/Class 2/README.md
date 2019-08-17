@@ -171,28 +171,6 @@ public void Post()
     var check = user;
 }
 ```
-At this point the body is received but like a string. It is great news if we need it as a string, but most of the time we will get an object that we will need to deserialize so we can use it. This is where the features of the ApiController come in play. HTTP requests with data can be automatically deserialized by using the **[FromBody]** attribute as a parameter of our action.
-```json
-// Data sent in body of request
-{
-	"name": "Bob",
-	"age": 22
-}
-```
-```csharp asp
-public class User
-{
-	public string Name {get;set;}
-	public int Age {get;set;}
-}
-...
-...
-[HttpPost]
-public void Post([FromBody] User user)
-{
-	// user object is populated with the json data
-}
-```
 ## Extra Materials 📘
 * [Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#Information_responses)
 * [HTTP Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
