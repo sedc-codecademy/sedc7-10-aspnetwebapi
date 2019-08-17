@@ -1,21 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using Facebook.WebApi2_0.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Facebook.WebApi.Models
+namespace Facebook.WebApi2_0.ViewModels
 {
-    public class User
+    public class UpdateUserViewModel
     {
         [Required]
         public string FirstName { get; set; }
 
         [Required]
         public string LastName { get; set; }
-
-        [Required]
-        public string Username { get; set; }
-
+        
         [Required]
         [EmailAddress]
         public string Email { get; set; }

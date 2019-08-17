@@ -1,4 +1,4 @@
-﻿namespace Facebook.WebApi.Models
+﻿namespace Facebook.WebApi2_0.Models
 {
     public enum Gender
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Facebook.WebApi.Controllers
+namespace Facebook.WebApi2_0.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : ControllerBase

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
-using Facebook.WebApi.Models;
-using Facebook.WebApi.ViewModels;
+using Facebook.WebApi2_0.Models;
+using Facebook.WebApi2_0.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Facebook.WebApi.Controllers
+namespace Facebook.WebApi2_0.Controllers
 {
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
