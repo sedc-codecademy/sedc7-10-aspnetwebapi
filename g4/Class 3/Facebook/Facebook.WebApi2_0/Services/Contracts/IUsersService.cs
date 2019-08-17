@@ -16,6 +16,6 @@ namespace Facebook.WebApi2_0.Services.Contracts
 
         User UpdateUser(User user);
 
-        void DeleteUser(User user);
+        void DeleteUser(string username);
     }
 }

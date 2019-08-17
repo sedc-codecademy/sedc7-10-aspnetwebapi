@@ -1,4 +1,7 @@
-﻿using Facebook.WebApi2_0.Middlewares;
+﻿using Facebook.WebApi2_0.Filters;
+using Facebook.WebApi2_0.Middlewares;
+using Facebook.WebApi2_0.Services;
+using Facebook.WebApi2_0.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -29,6 +32,8 @@ namespace Facebook.WebApi2._0
                 { options.SwaggerDoc("v1", new Info { Title = "Facebook api", Version = "v1" }); }
             );
 
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ModelValidationFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

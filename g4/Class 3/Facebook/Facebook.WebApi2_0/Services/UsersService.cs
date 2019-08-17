@@ -53,9 +53,13 @@ namespace Facebook.WebApi2_0.Services
             return user;
         }
 
-        public void DeleteUser(User user)
+        public void DeleteUser(string username)
         {
-            throw new NotImplementedException();
+            var user = s_users.SingleOrDefault(u => u.Username == username);
+            if (user == null)
+                throw new UserNotFoundException($"Username {username} does not exist");
+
+            s_users.Remove(user);
         }
 
         public User GetByUsername(string username)

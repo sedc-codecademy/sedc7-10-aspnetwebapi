@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Facebook.WebApi2_0.Filters;
 using Facebook.WebApi2_0.Models;
 using Facebook.WebApi2_0.Services.Contracts;
 using Facebook.WebApi2_0.ViewModels;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Facebook.WebApi2_0.Controllers
 {
+    [ServiceFilter(typeof(ModelValidationFilter))]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
@@ -37,7 +39,7 @@ namespace Facebook.WebApi2_0.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNewUser(User user)
+        public IActionResult CreateNewUser([FromBody]User user)
         {
             var serviceUser = _usersService.AddUser(user);
 
@@ -46,7 +48,7 @@ namespace Facebook.WebApi2_0.Controllers
         }
 
         [HttpPut("{username}")]
-        public IActionResult UpdateUser(UpdateUserViewModel viewModel, string username)
+        public IActionResult UpdateUser([FromBody]UpdateUserViewModel viewModel, string username)
         {
             var user = Models.User.FromViewModel(viewModel);
             user.Username = username;
@@ -57,12 +59,8 @@ namespace Facebook.WebApi2_0.Controllers
         [HttpDelete("{username}")]
         public IActionResult DeleteUser(string username)
         {
-            //var user = s_users.SingleOrDefault(u => u.Username == username);
-            //if (user == null)
-            //    return StatusCode((int)HttpStatusCode.NotFound,
-            //        $"Username {username} does not exist");
+            _usersService.DeleteUser(username);
 
-            //s_users.Remove(user);
             return NoContent();
         }
     }
