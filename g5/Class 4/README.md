@@ -1,4 +1,4 @@
-# Building a Note API 
+# Building a Note API 📒
 
 ## Models
 
