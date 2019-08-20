@@ -30,8 +30,10 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors(c => c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()));
-
+            services.AddCors(c => c.AddPolicy("AllowOrigin", options => {
+                options.WithOrigins("*").WithMethods("*").WithHeaders("*");
+                }));
+            
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {
                 Title = "My Api",
                 Version = "v1" }));

@@ -58,7 +58,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Task> Get(int id)
         {
-            Task task = _tasks.FirstOrDefault(t => t.Id == id);
+            Task task = repo.GetTask(id);
 
             if(null == task)
             {
@@ -70,25 +70,24 @@ namespace WebApi.Controllers
 
         // api/tasks
         [HttpPost]
-        public ActionResult<Task> Post([FromBody] Task obj)
+        public ActionResult<List<Task>> Post([FromBody] Task newTask)
         {
-            Task newTask = new Task
-            {
-                Id = _tasks.Count() + 1,
-                Title = obj.Title,
-                Description = obj.Description
-            };
-
-            _tasks.Add(newTask);
-
-            return Ok(newTask);
+            List<Task> tasks = repo.CreateTask(newTask);
+            
+            return Ok(tasks);
         }
 
 
         [HttpPut("{id}")]
-        public ActionResult<Task> Put([FromBody] Task obj, int id)
+        public ActionResult<Task> Put(int id, [FromBody] Task obj)
         {
-            return StatusCode(StatusCodes.Status501NotImplemented, "I will do it I promise");
+            Task updatedTask = repo.UpdateTask(id, obj);
+
+            if(null == updatedTask)
+            {
+                return NotFound();
+            }
+            return StatusCode(StatusCodes.Status200OK, updatedTask);
         }
 
     }
