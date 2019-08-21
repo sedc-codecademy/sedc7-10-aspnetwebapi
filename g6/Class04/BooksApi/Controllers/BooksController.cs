@@ -44,7 +44,7 @@ namespace BooksApi.Controllers
         }
 
 
-        // POST api/values
+        // POST api/books
         [HttpPost]
         public ActionResult<Book> Post([FromBody] Book book)
         {
@@ -53,7 +53,7 @@ namespace BooksApi.Controllers
             return result;
         }
 
-        // PUT api/values/5
+        // PUT api/books/5
         [HttpPut("{id}")]
         public ActionResult<Book> Put(int id, [FromBody] Book book)
         {
@@ -63,7 +63,20 @@ namespace BooksApi.Controllers
             return result;
         }
 
-        // DELETE api/values/5
+        // PATCH api/books/5
+        [HttpPatch("{id}")]
+        public ActionResult<Book> Patch(int id, [FromBody] int publicationYear)
+        {
+            var repo = new BookRepository();
+            if (publicationYear <= 0)
+            {
+                return UnprocessableEntity();
+            }
+            repo.UpdatePublicationYear(id, publicationYear);
+            return Ok();
+        }
+
+        // DELETE api/books/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

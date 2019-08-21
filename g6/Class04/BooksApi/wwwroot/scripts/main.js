@@ -27,6 +27,7 @@ const displayBooks = (books) => {
     <td>Title</td>
     <td>Author</td>
     <td>Publication Year</td>
+    <td></td>
     <td>Edit</td>
     <td>Delete</td>
 </tr>`);
@@ -61,27 +62,36 @@ const addBookRow = (book) => {
     <td>${book.id}</td>
     <td>${book.title}</td>
     <td>${book.author}</td>
-    <td>${book.publicationYear}</td>
+    <td id="year-${book.id}">${book.publicationYear}</td>
+    <td>
+        <button id="minus-${book.id}">-</button>
+        <button id="plus-${book.id}">+</button>
+    </td>
     <td><button id="edit-${book.id}">Edit</button></td>
     <td><button id="delete-${book.id}">Delete</button></td>
 </tr>`);
 
     $(`#edit-${book.id}`).on('click', startEditBook(book));
     $(`#delete-${book.id}`).on('click', deleteBook(book));
+    $(`#minus-${book.id}`).on('click', removeYear(book));
+    $(`#plus-${book.id}`).on('click', addYear(book));
 };
 
-const deleteBook = (book) => async () => {
-    const response = await fetch(`/api/books/${book.id}`, {
-        method: "DELETE"
-    });
+const deleteBook = (book) => {
+    console.log("deleteBook got called");
+    return async () => {
+        const response = await fetch(`/api/books/${book.id}`, {
+            method: "DELETE"
+        });
 
-    if (response.status === 200) {
-        console.log("successfully deleted");
-    } else {
-        console.log("error deleting");
-    }
-    // to-do: remove it from the table
-};
+        if (response.status === 200) {
+            console.log("successfully deleted");
+        } else {
+            console.log("error deleting");
+        }
+        // to-do: remove it from the table
+    };
+}
 
 const startEditBook = (book) => async () => {
     $("#edit-id").val(book.id);
@@ -107,4 +117,26 @@ const editBook = async () => {
     });
     const editedBook = await response.json();
     // to-do: update it in the table
+};
+
+const removeYear = (book) => async () => {
+    const year = book.publicationYear - 1;
+
+    const response = await fetch(`/api/books/${book.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(year),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.status === 200) {
+        console.log("successfully updated");
+        $(`#year-${book.id}`).text(year);
+    } else {
+        console.log("error updating");
+    }
+};
+
+const addYear = (book) => () => {
 };
