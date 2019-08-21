@@ -20,12 +20,12 @@ namespace BooksDataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>(entity =>
+            modelBuilder.Entity<Author>(entity =>
             {
-                entity
-                    .HasOne(b => b.Author)
-                    .WithMany(a => a.Books)
-                    .HasForeignKey(b => b.AuthorID);
+                entity.HasMany(a => a.Books);
+                //    .HasOne(b => b.Author)
+                //    .WithMany(a => a.Books)
+                //    .HasForeignKey(b => b.AuthorID);
             });
         }
 
