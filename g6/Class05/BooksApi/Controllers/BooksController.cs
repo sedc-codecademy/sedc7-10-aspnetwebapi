@@ -23,9 +23,16 @@ namespace BooksApi.Controllers
 
         // GET: api/Books
         [HttpGet]
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book> GetBooks([FromQuery] bool? isRead)
         {
-            return _context.Books;
+            if (isRead == null)
+            {
+                return _context.Books;
+            }
+            else
+            {
+                return _context.Books.Where(b => b.IsRead == isRead);
+            }
         }
 
         // GET: api/Books/5
