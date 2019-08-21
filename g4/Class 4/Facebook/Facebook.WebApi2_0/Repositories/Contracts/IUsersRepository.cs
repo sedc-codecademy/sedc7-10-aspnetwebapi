@@ -1,14 +1,12 @@
 ﻿using Facebook.WebApi2_0.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Facebook.WebApi2_0.Services.Contracts
+namespace Facebook.WebApi2_0.Repositories.Contracts
 {
-    public interface IUsersService
+    public interface IUsersRepository
     {
-        IEnumerable<User> GetUsers(DateTime? startDate, DateTime? endDate);
+        IEnumerable<User> GetUsers(DateTime? startDate = null, DateTime? endDate = null);
 
         User GetByUsername(string username);
 

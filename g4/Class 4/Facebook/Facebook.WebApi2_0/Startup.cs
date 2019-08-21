@@ -1,5 +1,7 @@
 ﻿using Facebook.WebApi2_0.Filters;
 using Facebook.WebApi2_0.Middlewares;
+using Facebook.WebApi2_0.Repositories;
+using Facebook.WebApi2_0.Repositories.Contracts;
 using Facebook.WebApi2_0.Services;
 using Facebook.WebApi2_0.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +35,10 @@ namespace Facebook.WebApi2._0
             );
 
             services.AddScoped<IUsersService, UsersService>();
+            //services.AddScoped<IUsersRepository, InMemoryUsersRepository>();
+            var connectionString = Configuration.GetValue<string>("MongoSettings:ConnectionString");
+            var databaseName = Configuration.GetValue<string>("MongoSettings:DatabaseName");
+            services.AddScoped<IUsersRepository>(sp => new MongoUsersRepository(connectionString, databaseName));
             services.AddScoped<ModelValidationFilter>();
         }
 
@@ -42,6 +48,15 @@ namespace Facebook.WebApi2._0
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger(options =>
+                {
+                    //options.RouteTemplate = string.Empty;
+                });
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Facebook api v1");
+                });
             }
             else
             {
@@ -63,14 +78,6 @@ namespace Facebook.WebApi2._0
                 //        });
                 //});
             }
-
-
-            app.UseSwagger();
-            app.UseSwaggerUI(options => 
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Facebook api v1");
-            });
-
             app.UseMvc();
         }
     }

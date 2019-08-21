@@ -1,14 +1,12 @@
-﻿using Facebook.WebApi2_0.Exceptions;
-using Facebook.WebApi2_0.Models;
-using Facebook.WebApi2_0.Services.Contracts;
+﻿using Facebook.WebApi2_0.Models;
+using Facebook.WebApi2_0.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Facebook.WebApi2_0.Services
+namespace Facebook.WebApi2_0.Repositories
 {
-    public class UsersService : IUsersService
+    public class InMemoryUsersRepository : IUsersRepository
     {
         private static readonly IList<User> s_users = new List<User>
         {
@@ -46,35 +44,22 @@ namespace Facebook.WebApi2_0.Services
 
         public User AddUser(User user)
         {
-            if (s_users.Any(u => u.Username == user.Username))
-                throw new ArgumentException($"The user with username: {user.Username} already exists");
-
             s_users.Add(user);
             return user;
         }
 
         public void DeleteUser(string username)
         {
-            var user = s_users.SingleOrDefault(u => u.Username == username);
-            if (user == null)
-                throw new UserNotFoundException($"Username {username} does not exist");
-
+            var user = GetByUsername(username);
             s_users.Remove(user);
         }
 
         public User GetByUsername(string username)
         {
-            if (string.IsNullOrWhiteSpace(username))
-                throw new ArgumentException("Parameter must have value with non white characters", nameof(username));
-
-            var user = s_users.SingleOrDefault(u => u.Username == username);
-            if (user == null)
-                throw new UserNotFoundException("The user does not exist");
-
-            return user;
+            return s_users.SingleOrDefault(u =>  u.Username == username);
         }
 
-        public IEnumerable<User> GetUsers(DateTime? startDate, DateTime? endDate)
+        public IEnumerable<User> GetUsers(DateTime? startDate = null, DateTime? endDate = null)
         {
             var users = s_users;
 
@@ -86,23 +71,16 @@ namespace Facebook.WebApi2_0.Services
                 users = users.Where(u => u.Birthday <= endDate)
                             .ToList();
 
-            return users;
+            return s_users;
         }
 
         public User UpdateUser(User user)
         {
-            var userFromMemory = s_users.SingleOrDefault(u => u.Username == user.Username);
-            if (userFromMemory == null)
-                throw new UserNotFoundException($"User with username: {user.Username} does not exist");
+            var dbUser = GetByUsername(user.Username);
+            //as temporary solution
+            dbUser.FirstName = user.FirstName;
 
-            userFromMemory.Birthday = user.Birthday;
-            userFromMemory.Email = user.Email;
-            userFromMemory.FirstName = user.FirstName;
-            userFromMemory.Gender = user.Gender;
-            userFromMemory.LastName = user.LastName;
-            userFromMemory.Password = user.Password;
-
-            return userFromMemory;
+            return dbUser;
         }
     }
 }
