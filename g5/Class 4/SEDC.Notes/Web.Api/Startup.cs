@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Services;
+using Services.Helpers;
 
 namespace Web.Api
 {
@@ -25,6 +27,20 @@ namespace Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Configuring AppSettings section
+            var appConfig = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appConfig);
+
+            // Using AppSettings
+            var appSettings = appConfig.Get<AppSettings>();
+
+            // IUserServce => new UserService();
+            services.AddTransient<IUserService, UserService>();
+            // INoteService => new NoteService();
+            services.AddTransient<INoteService, NoteService>();
+            DiModule.RegisterModule(services, appSettings.NoteAppConnectionString);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
