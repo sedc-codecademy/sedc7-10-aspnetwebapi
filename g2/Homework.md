@@ -3,6 +3,7 @@
 ## Requirements ✏
 A Company that has a Lottery show is planning to expand and needs a web application that will bring similar experience to a wide range of users online. Every person that thinks they have the lucky numbers can enter in numbers for the next draw. A person from the company initiates the draw, random numbers are drawn and the numbers that the people submitted until that point in time are checked if they are a winning combination. Winners should be added in a separate board where they can be accessed by anyone. All of these functionalities need to be accessible by any device so that the players can play on a different variety of devices. 
 > The client side of the application will be handled by other development teams.
+> There is no need for payment implementation. The payment will be handled by a third party service.
 
 ## Key Logic ✏
 * User - A player that is  able to play the game
@@ -22,6 +23,8 @@ A Company that has a Lottery show is planning to expand and needs a web applicat
     * 5 - TV
     * 4 - 100$ Gift Card
     * 3 - 50$ Gift Card
+  * A user can submit multiple tickets
+  * The user identification can be done by any means ( Ex. username, Full name, id etc. )
 * Draw
   * A draw is initiated by an admin
   * When a draw is initiated all people that entered numbers until that point in time enter in play
