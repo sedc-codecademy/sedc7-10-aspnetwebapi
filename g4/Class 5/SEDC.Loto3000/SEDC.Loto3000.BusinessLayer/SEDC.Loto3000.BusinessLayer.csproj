@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.Loto3000.DataLayer\SEDC.Loto3000.DataLayer.csproj" />
+    <ProjectReference Include="..\SEDC.Loto3000.Models\SEDC.Loto3000.Models.csproj" />
+  </ItemGroup>
+
+</Project>
