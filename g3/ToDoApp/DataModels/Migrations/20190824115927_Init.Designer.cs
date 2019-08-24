@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModels.Migrations
 {
     [DbContext(typeof(ToDoAppContext))]
-    [Migration("20190820162101_InitMigration")]
-    partial class InitMigration
+    [Migration("20190824115927_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace DataModels.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataModels.DtoToDoItem", b =>
+            modelBuilder.Entity("DataModels.ToDoItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,22 +31,22 @@ namespace DataModels.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("DtoUserId");
-
                     b.Property<string>("Title");
 
                     b.Property<int>("UserId");
 
+                    b.Property<int?>("UserId1");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DtoUserId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("ToDoItems");
                 });
 
-            modelBuilder.Entity("DataModels.DtoUser", b =>
+            modelBuilder.Entity("DataModels.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,16 +65,16 @@ namespace DataModels.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataModels.DtoToDoItem", b =>
+            modelBuilder.Entity("DataModels.ToDoItem", b =>
                 {
-                    b.HasOne("DataModels.DtoUser")
-                        .WithMany("Items")
-                        .HasForeignKey("DtoUserId");
-
-                    b.HasOne("DataModels.DtoUser", "User")
+                    b.HasOne("DataModels.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DataModels.User")
+                        .WithMany("Items")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

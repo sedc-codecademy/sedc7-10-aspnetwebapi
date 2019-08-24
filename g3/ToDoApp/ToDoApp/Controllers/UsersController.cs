@@ -26,16 +26,17 @@ namespace ToDoApp.Controllers
         // POST api/values
         [Route("register")]
         [HttpPost]
-        public void Post([FromBody] UserModel model)
+        public IActionResult Post([FromBody] RegisterModel model)
         {
             _userService.Register(model);
+            return Ok();
         }
 
-        [Route("all")]
-        [HttpGet]
-        public IEnumerable<UserModel> GetAll()
+        [Route("authenticate")]
+        [HttpPost]
+        public IActionResult Authenticate([FromBody] LoginModel model)
         {
-            return _userService.GetAll();
+            return Ok(_userService.Authenticate(model));
         }
     }
 }

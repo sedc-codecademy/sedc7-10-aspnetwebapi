@@ -10,10 +10,10 @@ namespace Business
 {
     public class ToDoService : IToDoService
     {
-        private readonly IRepository<DtoToDoItem> _toDoItemRepository;
-        private readonly IRepository<DtoUser> _userRepository;
+        private readonly IRepository<ToDoItem> _toDoItemRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public ToDoService(IRepository<DtoToDoItem> toDoItemRepository, IRepository<DtoUser> userRepository)
+        public ToDoService(IRepository<ToDoItem> toDoItemRepository, IRepository<User> userRepository)
         {
             _toDoItemRepository = toDoItemRepository;
             _userRepository = userRepository;
@@ -27,7 +27,6 @@ namespace Business
                 .Select(x => new ToDoItemModel
             {
                 Id = x.Id,
-                UserId = x.UserId,
                 Title = x.Title,
                 Description = x.Description,
                 Completed = x.Completed
@@ -41,7 +40,7 @@ namespace Business
             if (user == null)
                 throw new Exception("User does not exist.");
 
-            _toDoItemRepository.Add(new DtoToDoItem
+            _toDoItemRepository.Add(new ToDoItem
             {
                 UserId = user.Id,
                 Title = model.Title,
@@ -57,8 +56,11 @@ namespace Business
             if(user == null)
                 throw new Exception("User does not exist.");
 
-            var item = _toDoItemRepository.GetById(model.Id);
-
+            var item = _toDoItemRepository.GetAll().FirstOrDefault(x => x.Id == model.Id && x.UserId == user.Id);
+            
+            if(item == null)
+                throw new Exception("To Do item does not exist.");
+            
             item.Completed = model.Completed;
             item.Description = model.Description;
             item.Title = model.Title;
@@ -66,11 +68,19 @@ namespace Business
             _toDoItemRepository.Update(item);
         }
 
-        public void DeleteTodoItem(int itemId)
+        public void DeleteTodoItem(int userId, int itemId)
         {
+            //var user = _userRepository.GetById(userId);
+
+            //if (user == null)
+            //    throw new Exception("User does not exist.");
+
             var item = _toDoItemRepository
                 .GetAll()
-                .FirstOrDefault(x => x.Id == itemId);
+                .FirstOrDefault(x => x.Id == itemId && x.UserId == userId);
+
+            if (item == null)
+                throw new Exception("To Do item does not exist.");
 
             _toDoItemRepository.Delete(item);
         }

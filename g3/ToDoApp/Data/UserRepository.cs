@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Data
 {
-    public class UserRepository : IRepository<DtoUser>
+    public class UserRepository : IRepository<User>
     {
         private readonly string _connectionString;
 
@@ -13,7 +13,7 @@ namespace Data
         {
             _connectionString = configuration.GetConnectionString("ToDoDatabase");
         }
-        public IEnumerable<DtoUser> GetAll()
+        public IEnumerable<User> GetAll()
         {
             using (var dbContext = new ToDoAppContext(_connectionString))
             {
@@ -21,7 +21,7 @@ namespace Data
             }
         }
 
-        public DtoUser GetById(int id)
+        public User GetById(int id)
         {
             using (var dbContext = new ToDoAppContext(_connectionString))
             {
@@ -29,7 +29,7 @@ namespace Data
             }
         }
 
-        public void Add(DtoUser entity)
+        public void Add(User entity)
         {
             using (var dbContext = new ToDoAppContext(_connectionString))
             {
@@ -38,7 +38,7 @@ namespace Data
             }
         }
 
-        public void Delete(DtoUser entity)
+        public void Delete(User entity)
         {
             using (var dbContext = new ToDoAppContext(_connectionString))
             {
@@ -47,7 +47,7 @@ namespace Data
             }
         }
 
-        public void Update(DtoUser entity)
+        public void Update(User entity)
         {
             using (var dbContext = new ToDoAppContext(_connectionString))
             {

@@ -8,6 +8,6 @@ namespace Business
         IEnumerable<ToDoItemModel> GetAllByUser(int userId);
         void AddTodoItem(int userId, ToDoItemModel model);
         void UpdateTodoItem(int userId, ToDoItemModel model);
-        void DeleteTodoItem(int itemId);
+        void DeleteTodoItem(int userId, int itemId);
     }
 }

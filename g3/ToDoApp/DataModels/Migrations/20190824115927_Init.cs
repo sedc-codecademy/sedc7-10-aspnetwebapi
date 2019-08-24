@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataModels.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,34 +33,34 @@ namespace DataModels.Migrations
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Completed = table.Column<bool>(nullable: false),
-                    DtoUserId = table.Column<int>(nullable: true)
+                    UserId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ToDoItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ToDoItems_Users_DtoUserId",
-                        column: x => x.DtoUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ToDoItems_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ToDoItems_DtoUserId",
-                table: "ToDoItems",
-                column: "DtoUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ToDoItems_UserId",
                 table: "ToDoItems",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItems_UserId1",
+                table: "ToDoItems",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

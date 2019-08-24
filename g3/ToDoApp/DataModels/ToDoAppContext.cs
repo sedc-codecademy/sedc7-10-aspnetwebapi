@@ -17,13 +17,13 @@ namespace DataModels
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<DtoUser>()
-                .HasMany<DtoToDoItem>()
+            builder.Entity<User>()
+                .HasMany<ToDoItem>()
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
         }
 
-        public DbSet<DtoUser> Users { get; set; }
-        public DbSet<DtoToDoItem> ToDoItems { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<ToDoItem> ToDoItems { get; set; }
     }
 }
