@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using SEDC.Loto3000.Models;
+using System.Collections.Generic;
 
 namespace SEDC.Loto3000.BusinessLayer.Contracts
 {
     public interface ITicketService
     {
-        void SubmitTicket(IEnumerable<ushort> pickedNumbers, string userEmail);
+        Ticket SubmitTicket(IEnumerable<ushort> pickedNumbers, string userEmail);
     }
 }

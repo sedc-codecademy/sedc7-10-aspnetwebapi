@@ -20,7 +20,7 @@ namespace SEDC.Loto3000.BusinessLayer.Implementations
             _drawRepository = drawRepository;
             _ticketRepository = ticketRepository;
         }
-        public void SubmitTicket(IEnumerable<ushort> pickedNumbers, string userEmail)
+        public Ticket SubmitTicket(IEnumerable<ushort> pickedNumbers, string userEmail)
         {
             ThrowIfNotValidPickedNumbers(pickedNumbers);
 
@@ -39,6 +39,8 @@ namespace SEDC.Loto3000.BusinessLayer.Implementations
                 UserId = user.Id
             };
             _ticketRepository.Add(ticket);
+
+            return ticket;
         }
 
         private void ThrowIfNotValidPickedNumbers(IEnumerable<ushort> pickedNumbers)

@@ -13,6 +13,7 @@ namespace SEDC.Loto3000.DataLayer.Implementations
 
         public void Add(T item)
         {
+            item.Id = Guid.NewGuid().ToString();
             _items.Add(item);
         }
 

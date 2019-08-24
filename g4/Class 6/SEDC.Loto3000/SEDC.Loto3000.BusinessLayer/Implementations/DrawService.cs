@@ -24,7 +24,7 @@ namespace SEDC.Loto3000.BusinessLayer.Implementations
         public Draw CreateNew(string adminEmail)
         {
             var user = _userRepository.GetUser(adminEmail);
-            if (user?.IsAdmin ?? false)//(user != null && user.IsAdmin)
+            if (IsUserNullOrNotAdmin(user))
                 throw new Exception($"User with email: {adminEmail} does not exist or is not admin");
 
             var activeDraw = _drawRepository.GetActiveDraw();
@@ -43,7 +43,7 @@ namespace SEDC.Loto3000.BusinessLayer.Implementations
         public Draw SubmitDraw(string adminEmail)
         {
             var user = _userRepository.GetUser(adminEmail);
-            if (user?.IsAdmin ?? false)//(user != null && user.IsAdmin)
+            if (IsUserNullOrNotAdmin(user))
                 throw new Exception($"User with email: {adminEmail} does not exist or is not admin");
             
             var activeDraw = _drawRepository.GetActiveDraw();
@@ -52,6 +52,11 @@ namespace SEDC.Loto3000.BusinessLayer.Implementations
 
             _drawGenericRepository.Update(activeDraw);
             return activeDraw;
+        }
+
+        private bool IsUserNullOrNotAdmin(User user)
+        {
+            return user == null || !user.IsAdmin;
         }
 
         private IEnumerable<ushort> GetDrawnNumbers()
