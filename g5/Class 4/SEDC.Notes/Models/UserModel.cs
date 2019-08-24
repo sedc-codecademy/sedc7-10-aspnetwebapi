@@ -11,6 +11,7 @@ namespace Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+        public string Token { get; set; }
         public List<NoteModel> NoteList { get; set; }
         public UserModel()
         {
