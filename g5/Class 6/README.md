@@ -169,6 +169,9 @@ The number of devices and services that we use is growing and every device and s
 6. The application then authorizes the user ( ex: with their google account )
 ![oauth2](https://assets.digitalocean.com/articles/oauth/abstract_flow.png)
 
+## NoteApp Postman Calls with Authentication
+[Postman Calls Collection](https://www.getpostman.com/collections/013e2f60c0e14da3a17a)
+
 ## Extra Materials 📘
 * [Understand JWT in 5 steps](https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec)
 * [Cookies vs Tokens guide](https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide)
