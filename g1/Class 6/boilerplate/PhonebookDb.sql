@@ -22,19 +22,19 @@ create table Contacts
 
 go
 
-insert into Users([Id], [FirstName], [Lastname], [Username], [Password])
+insert into Users([FirstName], [Lastname], [Username], [Password])
 values
-	(1, 'Igor', 'Mitkovski', 'igor.mitkovski', '123456'),
-	(2, 'Dejan', 'Blazheski', 'dejan.blazheski', '123456'),
-	(3, 'Stojko', 'Smilevski', 'stojko.smilevski', '123456')
+	('Igor', 'Mitkovski', 'igor.mitkovski', '123456'),
+	('Dejan', 'Blazheski', 'dejan.blazheski', '123456'),
+	('Stojko', 'Smilevski', 'stojko.smilevski', '123456')
 ;
 
-insert into Contacts([Id], [FirstName], [Lastname], [Email], [Address], [Phonenumber], [UserId])
+insert into Contacts([FirstName], [Lastname], [Email], [Address], [Phonenumber], [UserId])
 values
-	(1, 'Bojan', 'Gjorgjievski', 'bojan.gjorgjievski@gmail.com', 'SomeAddress1', '123456', 1),
-	(2, 'Nikola', 'Petreski', 'dejan.blazheski@hotmail.com', 'SomeAddress2', '123456', 1),
-	(3, 'Riste', 'Mechkaroski', 'riste.mechkaroski@live.com', 'SomeAddress3', '123456', 2),
-	(4, 'Stojanche', 'Majstorot', 'stojko.smilevski@live.com', 'SomeAddress4', '123456', 3),
-	(5, 'Jordan', 'Kazmata', 'stojko.smilevski@hotmail.com', 'SomeAddress5', '123456', 3),
-	(6, 'Miroslav', 'Rabota', 'stojko.smilevski@gmail.com', 'Some Address6', '123456', 3)
+	('Bojan', 'Gjorgjievski', 'bojan.gjorgjievski@gmail.com', 'SomeAddress1', '123456', 1),
+	('Nikola', 'Petreski', 'dejan.blazheski@hotmail.com', 'SomeAddress2', '123456', 1),
+	('Riste', 'Mechkaroski', 'riste.mechkaroski@live.com', 'SomeAddress3', '123456', 2),
+	('Stojanche', 'Majstorot', 'stojko.smilevski@live.com', 'SomeAddress4', '123456', 3),
+	('Jordan', 'Kazmata', 'stojko.smilevski@hotmail.com', 'SomeAddress5', '123456', 3),
+	('Miroslav', 'Rabota', 'stojko.smilevski@gmail.com', 'Some Address6', '123456', 3)
 ;
