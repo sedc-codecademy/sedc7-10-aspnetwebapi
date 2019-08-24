@@ -59,7 +59,8 @@ namespace Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Username = user.Username
+                Username = user.Username,
+                Token = tokenHandler.WriteToken(token)
             };
             return userModel;
         }

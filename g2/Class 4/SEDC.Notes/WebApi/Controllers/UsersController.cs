@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -9,6 +10,7 @@ using Services;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -19,6 +21,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
+        [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] LoginModel model)
         {
@@ -29,6 +32,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel model)
         {
