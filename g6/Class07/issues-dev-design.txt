@@ -1,0 +1,38 @@
+1 - Submitted
+2 - Assigned
+3 - In progress
+4 - Finished
+
+
+- To get all users - /api/users/
+- To get all the issues - /api/issues/
+- To get all issues by user  /api/users/{userId}/issues
+							 /api/issues/user/{userId}/
+	- to get all issues assigned to me /api/issues/assigned/{userId}
+	- to get all issues reported by me /api/issues/reporter/{userId}
+	
+	/api/issues/user/{userId}
+	/api/issues/reporter/{userId}
+	/api/issues/assigned/{userId}
+	
+	/api/users/{userId}/issues
+	/api/users/{userId}/reported-issues/
+	/api/users/{userId}/assigned-issues/
+
+- To get all issues by status 
+	/api/issues/?status="status"
+- To get a single issue
+	/api/issues/{id}
+- To get a single user
+	/api/users/{userId}
+
+
+
+- Add a new user
+- Delete a user (only with 0 issues)
+- Update my personal info
+- Create an issue
+- Update an issue (title and or description)
+- Assign an issue
+- Make progress on issue
+- Finish an issue
