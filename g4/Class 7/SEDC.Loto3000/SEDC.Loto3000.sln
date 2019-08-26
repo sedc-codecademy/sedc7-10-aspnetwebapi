@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.Loto3000.Models", "SEDC.Loto3000.Models\SEDC.Loto3000.Models.csproj", "{2BB1C719-1319-4831-8B6D-0DAEFCBD9D7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.Loto3000.DataLayer", "SEDC.Loto3000.DataLayer\SEDC.Loto3000.DataLayer.csproj", "{796F4540-4BFB-4DA5-8F4C-2B1803B75BF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.Loto3000.BusinessLayer", "SEDC.Loto3000.BusinessLayer\SEDC.Loto3000.BusinessLayer.csproj", "{75BC71DD-AE64-43CB-8025-BD2A9F83F16D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.Loto3000.WebApi", "SEDC.Loto3000.WebApi\SEDC.Loto3000.WebApi.csproj", "{AE9CC834-4EB3-4B18-B0CB-C7A3B4336A4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BB1C719-1319-4831-8B6D-0DAEFCBD9D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB1C719-1319-4831-8B6D-0DAEFCBD9D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB1C719-1319-4831-8B6D-0DAEFCBD9D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB1C719-1319-4831-8B6D-0DAEFCBD9D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{796F4540-4BFB-4DA5-8F4C-2B1803B75BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796F4540-4BFB-4DA5-8F4C-2B1803B75BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796F4540-4BFB-4DA5-8F4C-2B1803B75BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796F4540-4BFB-4DA5-8F4C-2B1803B75BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75BC71DD-AE64-43CB-8025-BD2A9F83F16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75BC71DD-AE64-43CB-8025-BD2A9F83F16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75BC71DD-AE64-43CB-8025-BD2A9F83F16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75BC71DD-AE64-43CB-8025-BD2A9F83F16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE9CC834-4EB3-4B18-B0CB-C7A3B4336A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE9CC834-4EB3-4B18-B0CB-C7A3B4336A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE9CC834-4EB3-4B18-B0CB-C7A3B4336A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE9CC834-4EB3-4B18-B0CB-C7A3B4336A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F7292A0-134C-4E09-87B4-C8FDE3BD9220}
+	EndGlobalSection
+EndGlobal
