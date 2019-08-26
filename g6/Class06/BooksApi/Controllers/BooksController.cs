@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BooksDataAccess;
 using BooksModels;
+using BooksApi.ViewModels;
 
 namespace BooksApi.Controllers
 {
@@ -21,18 +22,28 @@ namespace BooksApi.Controllers
             _context = context;
         }
 
-        // GET: api/Books
+        /// <summary>
+        /// Gets a list of books
+        /// </summary>
+        /// <param name="isRead">Whether the specific book is read or unread</param>
+        /// <param name="search">Filters the books with the specific title, using partial matching (case insensitive)</param>
+        /// <returns>Array of BookListViewModel entities</returns>
         [HttpGet]
-        public IEnumerable<Book> GetBooks([FromQuery] bool? isRead)
+        public IEnumerable<BookListViewModel> GetBooks([FromQuery] bool? isRead, [FromQuery] string search)
         {
-            if (isRead == null)
+            IEnumerable<Book> books = _context.Books.Include(b => b.Author);
+
+            if (string.IsNullOrEmpty(search))
             {
-                return _context.Books;
+                books = books.Where(b => b.Title.Contains(search, StringComparison.InvariantCultureIgnoreCase));
             }
-            else
+
+            if (isRead.HasValue)
             {
-                return _context.Books.Where(b => b.IsRead == isRead);
+                books = books.Where(b => b.IsRead == isRead);
             }
+
+            return books.Select(b => BookListViewModel.FromBook(b));
         }
 
         // GET: api/Books/5
@@ -56,6 +67,9 @@ namespace BooksApi.Controllers
 
         // PUT: api/Books/5
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> PutBook([FromRoute] int id, [FromBody] Book book)
         {
             if (!ModelState.IsValid)
