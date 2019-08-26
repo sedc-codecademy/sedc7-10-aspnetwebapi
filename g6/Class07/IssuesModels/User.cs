@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IssuesModels
 {
-    class User
+    public class User
     {
     }
 }
