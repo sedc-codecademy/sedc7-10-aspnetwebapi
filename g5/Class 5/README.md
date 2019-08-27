@@ -15,3 +15,15 @@ A movie contains:
 
 # Part 2
 Create an architecture and connect the API to a database where the data should be kept
+
+# Part 3
+Create an end to end implementation about Users. A User has:
+* Username
+* Password ( Hashed )
+* First Name
+* Last Name
+* Favorite Genre
+* MoviesList
+
+# Bonus 
+Implement authenticatioin/authorization with tokens
