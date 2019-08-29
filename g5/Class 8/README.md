@@ -169,148 +169,284 @@ public class ValueTests
     }
 }
 ```
-#### Mocking Repositories
+#### Implementation using Fake Repositories
 ```csharp asp
-public static class MockHelper
+public class FakeUserRepository : IRepository<UserDto>
 {
-    public static IRepository<UserDto> MockUserRepository()
+private List<UserDto> users;
+public FakeUserRepository()
+{
+    var md5 = new MD5CryptoServiceProvider();
+    var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes("123456sedc"));
+    var hashedPassword = Encoding.ASCII.GetString(md5data);
+
+    users = new List<UserDto>()
     {
-        var md5 = new MD5CryptoServiceProvider();
-        var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes("123456sedc"));
-        var hashedPassword = Encoding.ASCII.GetString(md5data);
-        List<UserDto> users = new List<UserDto>()
-        {
-            new UserDto(){
-                Id = 1,
-                FirstName = "Bob",
-                LastName = "Bobsky",
-                Username = "bob007",
-                Password = hashedPassword
-            }
-        };
-        Mock<IRepository<UserDto>> mockUserRepository = new Mock<IRepository<UserDto>>();
+	new UserDto(){
+	    Id = 1,
+	    FirstName = "Bob",
+	    LastName = "Bobsky",
+	    Username = "bob007",
+	    Password = hashedPassword
+	}
+    };
+}
+public void Add(UserDto entity)
+{
+    users.Add(entity);
+}
 
-        mockUserRepository.Setup(x => x.GetAll()).Returns(users);
+public void Delete(UserDto entity)
+{
+    users.Remove(entity);
+}
 
-        mockUserRepository.Setup(x => x.Add(
-            It.IsAny<UserDto>())).Callback((UserDto user) =>
-            {
-                users.Add(user);
-            });
+public IEnumerable<UserDto> GetAll()
+{
+    return users;
+}
 
-        mockUserRepository.Setup(x => x.Update(
-            It.IsAny<UserDto>())).Callback((UserDto user) =>
-            {
-                users.Add(user);
-            });
-
-        mockUserRepository.Setup(x => x.Delete(
-            It.IsAny<UserDto>())).Callback((UserDto user) =>
-            {
-                users.Remove(user);
-            });
-        return mockUserRepository.Object;
-    }
-    public static IRepository<NoteDto> MockNoteRepository()
+public void Update(UserDto update)
+{
+    users[users.IndexOf(update)] = update;
+}
+}
+public class FakeNoteRepository : IRepository<NoteDto>
+{
+private List<NoteDto> notes;
+public FakeNoteRepository()
+{
+    notes = new List<NoteDto>()
     {
-        List<NoteDto> notes = new List<NoteDto>()
-        {
-            new NoteDto(){
-                Id = 1,
-                Text = "Don't forget to water the plant",
-                Color = "blue",
-                Tag = 2,
-                UserId = 1
-            },
-            new NoteDto(){
-                Id = 2,
-                Text = "Drink more Tea",
-                Color = "yellow",
-                Tag = 3,
-                UserId = 1
-            },
-            new NoteDto(){
-                Id = 5,
-                Text = "Make a break every 1h of coding",
-                Color = "red",
-                Tag = 1,
-                UserId = 1
-            }
-        };
-        Mock<IRepository<NoteDto>> mockNotesRepository = new Mock<IRepository<NoteDto>>();
+	new NoteDto(){
+	    Id = 1,
+	    Text = "Don't forget to water the plant",
+	    Color = "blue",
+	    Tag = 2,
+	    UserId = 1
+	},
+	new NoteDto(){
+	    Id = 2,
+	    Text = "Drink more Tea",
+	    Color = "yellow",
+	    Tag = 3,
+	    UserId = 1
+	}
+    };
+}
+public void Add(NoteDto entity)
+{
+    notes.Add(entity);
+}
 
-        mockNotesRepository.Setup(x => x.GetAll()).Returns(notes);
+public void Delete(NoteDto entity)
+{
+    notes.Remove(entity);
+}
 
-        mockNotesRepository.Setup(x => x.Add(
-            It.IsAny<NoteDto>())).Callback((NoteDto note) =>
-            {
-                notes.Add(note);
-            });
+public IEnumerable<NoteDto> GetAll()
+{
+    return notes;
+}
 
-        mockNotesRepository.Setup(x => x.Update(
-            It.IsAny<NoteDto>())).Callback((NoteDto note) =>
-            {
-                notes.Add(note);
-            });
-
-        mockNotesRepository.Setup(x => x.Delete(
-            It.IsAny<NoteDto>())).Callback((NoteDto note) =>
-            {
-                notes.Remove(note);
-            });
-        return mockNotesRepository.Object;
-    }
+public void Update(NoteDto update)
+{
+    notes[notes.IndexOf(update)] = update;
+}
 }
 ```
-#### Complex Unit Test Class
+#### Tests using fake repositories
 ```csharp asp
 [TestClass]
 public class NoteTests
 {
-    [TestMethod]
-    public void GetAll_ValidUserId_AllNotesForThatUser()
-    {
-        // Arrange
-        INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
-        int expectedResult = 3;
-        int userId = 1;
-        // Act
-        IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
-        // Assert
-        Assert.AreEqual(expectedResult, result.ToList().Count);
-    }
-    [TestMethod]
-    public void GetById_InvalidUserId_null()
-    {
-        // Arrange
-        INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
-        int expectedResult = 0;
-        int userId = 3;
-        // Act
-        IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
-        // Assert
-        Assert.AreEqual(expectedResult, result.ToList().Count);
-    }
-    [TestMethod]
-    public void AddNote_ValidData_NoteAdded()
-    {
-        // Arrange
-        INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
-        int expectedResult = 4;
-        NoteModel model = new NoteModel()
-        {
-            Id = 4,
-            Text = "Test the app",
-            Color = "red",
-            Tag = TagType.Work,
-            UserId = 1
-        };
-        // Act
-        noteService.AddNote(model);
-        // Assert
-        IEnumerable<NoteModel> resultNotes = noteService.GetUserNotes(model.UserId);
-        Assert.AreEqual(expectedResult, resultNotes.ToList().Count);
-    }
+	[TestMethod]
+	public void GetUserNotes_ValidUserId_AllNotesForThatUser()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(new FakeUserRepository(), new FakeNoteRepository());
+	    int expectedResult = 2;
+	    int userId = 1;
+	    // Act
+	    IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.ToList().Count);
+	}
+	[TestMethod]
+	public void GetUserNotes_InvalidUserId_null()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(new FakeUserRepository(), new FakeNoteRepository());
+	    int expectedResult = 0;
+	    int userId = 3;
+	    // Act
+	    IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.ToList().Count);
+	}
+	[TestMethod]
+	public void GetNote_ValidUserId_Note()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(new FakeUserRepository(), new FakeNoteRepository());
+	    int userId = 1;
+	    int noteId = 1;
+	    int expectedResult = 1;
+	    // Act
+	    NoteModel result = noteService.GetNote(noteId, userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.Id);
+	}
+	[TestMethod]
+	public void GetNote_InvalidUserId_Exception()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(new FakeUserRepository(), new FakeNoteRepository());
+	    int userId = 1;
+	    int noteId = 9;
+	    // Act / Assert
+	    Assert.ThrowsException<NullReferenceException>(() => noteService.GetNote(noteId, userId));
+	}
+}
+```
+#### Mocking Repositories
+```csharp asp
+public static class MockHelper
+{
+	public static IRepository<UserDto> MockUserRepository()
+	{
+	    var md5 = new MD5CryptoServiceProvider();
+	    var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes("123456sedc"));
+	    var hashedPassword = Encoding.ASCII.GetString(md5data);
+	    List<UserDto> users = new List<UserDto>()
+	    {
+		new UserDto(){
+		    Id = 1,
+		    FirstName = "Bob",
+		    LastName = "Bobsky",
+		    Username = "bob007",
+		    Password = hashedPassword
+		}
+	    };
+	    Mock<IRepository<UserDto>> mockUserRepository = new Mock<IRepository<UserDto>>();
+
+	    mockUserRepository.Setup(x => x.GetAll()).Returns(users);
+
+	    mockUserRepository.Setup(x => x.Add(
+		It.IsAny<UserDto>())).Callback((UserDto user) =>
+		{
+		    users.Add(user);
+		});
+
+	    mockUserRepository.Setup(x => x.Update(
+		It.IsAny<UserDto>())).Callback((UserDto user) =>
+		{
+		    users[users.IndexOf(user)] = user;
+		});
+
+	    mockUserRepository.Setup(x => x.Delete(
+		It.IsAny<UserDto>())).Callback((UserDto user) =>
+		{
+		    users.Remove(user);
+		});
+	    return mockUserRepository.Object;
+	}
+	public static IRepository<NoteDto> MockNoteRepository()
+	{
+	    List<NoteDto> notes = new List<NoteDto>()
+	    {
+		new NoteDto(){
+		    Id = 1,
+		    Text = "Don't forget to water the plant",
+		    Color = "blue",
+		    Tag = 2,
+		    UserId = 1
+		},
+		new NoteDto(){
+		    Id = 2,
+		    Text = "Drink more Tea",
+		    Color = "yellow",
+		    Tag = 3,
+		    UserId = 1
+		}
+	    };
+	    Mock<IRepository<NoteDto>> mockNotesRepository = new Mock<IRepository<NoteDto>>();
+
+	    mockNotesRepository.Setup(x => x.GetAll()).Returns(notes);
+
+	    mockNotesRepository.Setup(x => x.Add(
+		It.IsAny<NoteDto>())).Callback((NoteDto note) =>
+		{
+		    notes.Add(note);
+		});
+
+	    mockNotesRepository.Setup(x => x.Update(
+		It.IsAny<NoteDto>())).Callback((NoteDto note) =>
+		{
+		    notes[notes.IndexOf(note)] = note;
+		});
+
+	    mockNotesRepository.Setup(x => x.Delete(
+		It.IsAny<NoteDto>())).Callback((NoteDto note) =>
+		{
+		    notes.Remove(note);
+		});
+	    return mockNotesRepository.Object;
+	}
+}
+```
+#### Tests using mocked repositories
+```csharp asp
+[TestClass]
+public class NoteTestsMoq
+{
+	[TestMethod]
+	public void GetUserNotes_ValidUserId_AllNotesForThatUser()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
+	    int expectedResult = 2;
+	    int userId = 1;
+	    // Act
+	    IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.ToList().Count);
+	}
+	[TestMethod]
+	public void GetUserNotes_InvalidUserId_null()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
+	    int expectedResult = 0;
+	    int userId = 3;
+	    // Act
+	    IEnumerable<NoteModel> result = noteService.GetUserNotes(userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.ToList().Count);
+	}
+	[TestMethod]
+	public void GetNote_ValidUserId_Note()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
+	    int userId = 1;
+	    int noteId = 1;
+	    int expectedResult = 1;
+	    // Act
+	    NoteModel result = noteService.GetNote(noteId, userId);
+	    // Assert
+	    Assert.AreEqual(expectedResult, result.Id);
+	}
+	[TestMethod]
+	public void GetNote_InvalidUserId_Exception()
+	{
+	    // Arrange
+	    INoteService noteService = new NoteService(MockHelper.MockUserRepository(), MockHelper.MockNoteRepository());
+	    int userId = 1;
+	    int noteId = 9;
+	    // Act / Assert
+	    Assert.ThrowsException<NullReferenceException>(() => noteService.GetNote(noteId, userId));
+	}
 }
 ```
 ## Extra Materials 📘
