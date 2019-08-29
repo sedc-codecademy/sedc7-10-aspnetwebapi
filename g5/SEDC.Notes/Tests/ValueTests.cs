@@ -97,10 +97,8 @@ namespace Tests
         {
             // Arrange
             int num = 12;
-            // Act
-            string result = _valueService.GetDigitName(num);
-            // Assert
-            // Will pass if the test throws an ArgumentOutOfRangeException
+            // Act / Assert
+            _valueService.GetDigitName(num);
         }
         // Expecting with Assert
         [TestMethod]
@@ -109,7 +107,7 @@ namespace Tests
             // Arrange
             int num = 12;
             // Act / Assert
-            Assert.ThrowsException<NullReferenceException>(() => _valueService.GetDigitName(num));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => _valueService.GetDigitName(num));
         }
     }
 }
