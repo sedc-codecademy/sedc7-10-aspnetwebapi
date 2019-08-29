@@ -145,9 +145,11 @@ public class ValueTests
         // Assert ( Are Equal - Test will pass if values are equal )
         Assert.AreEqual(expectedResult, result);
     }
+    // Expecting Exceptions
+    // Expecting with attribute
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
     [TestMethod]
-    public void GetDigitName_DoubleDigit_Exception()
+    public void GetDigitName_DoubleDigit_Exception_Method1()
     {
         // Arrange
         int num = 12;
@@ -155,6 +157,15 @@ public class ValueTests
         string result = _valueService.GetDigitName(num);
         // Assert
         // Will pass if the test throws an ArgumentOutOfRangeException
+    }
+    // Expecting with Assert
+    [TestMethod]
+    public void GetDigitName_DoubleDigit_Exception_Method2()
+    {
+        // Arrange
+        int num = 12;
+	// Act / Assert
+        Assert.ThrowsException<NullReferenceException>(() => _valueService.GetDigitName(num));
     }
 }
 ```
@@ -182,21 +193,21 @@ public static class MockHelper
         mockUserRepository.Setup(x => x.GetAll()).Returns(users);
 
         mockUserRepository.Setup(x => x.Add(
-            It.IsAny<UserDto>())).Callback((UserDto note) =>
+            It.IsAny<UserDto>())).Callback((UserDto user) =>
             {
-                users.Add(note);
+                users.Add(user);
             });
 
         mockUserRepository.Setup(x => x.Update(
-            It.IsAny<UserDto>())).Callback((UserDto note) =>
+            It.IsAny<UserDto>())).Callback((UserDto user) =>
             {
-                users.Add(note);
+                users.Add(user);
             });
 
         mockUserRepository.Setup(x => x.Delete(
-            It.IsAny<UserDto>())).Callback((UserDto note) =>
+            It.IsAny<UserDto>())).Callback((UserDto user) =>
             {
-                users.Remove(note);
+                users.Remove(user);
             });
         return mockUserRepository.Object;
     }
@@ -306,3 +317,4 @@ public class NoteTests
 * [Types of Software Testing](https://www.softwaretestinghelp.com/types-of-software-testing/)
 * [Unit Testing in ASP.NET Core](https://code-maze.com/unit-testing-aspnetcore-web-api/)
 * [Mocking a Database Repository With MOQ](https://www.codeproject.com/Articles/47603/Mock-a-Database-Repository-using-Moq)
+* [Comparison between Testing Frameworks](https://xunit.net/docs/comparisons)
