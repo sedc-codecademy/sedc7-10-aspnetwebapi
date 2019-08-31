@@ -10,7 +10,7 @@ namespace Tests
     public class UserTests
     {
         [TestMethod]
-        public void Authenticate_ValidUsernamePassword_UserModel()
+        public void Authenticate_ValidUsernamePassword_ValidToken()
         {
             // Arrange
             IOptions<AppSettings> mockOptions = Options.Create<AppSettings>(new AppSettings()
@@ -30,7 +30,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void Authenticate_InvalidUsernamePassword_UserModel()
+        public void Authenticate_InvalidUsernamePassword_Null()
         {
             // Arrange
             IOptions<AppSettings> mockOptions = Options.Create<AppSettings>(new AppSettings()
