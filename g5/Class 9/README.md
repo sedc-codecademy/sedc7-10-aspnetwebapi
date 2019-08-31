@@ -48,7 +48,7 @@ Log.Information("USER {username} has registered on the map", Username);
 // This will log an Error type log
 Log.Error("USER Error for {userId}.{name}: {message}", UserId, Name, Message);
 // This will log an Error type log but the user object will be presented with all data 
-Log.Error("USER Error for {@user}: {message}", user);
+Log.Error("USER Error for {@user}: {message}", User, Message);
 ```
 ## Connecting other applications to our API 🔶
 ### Microservice structure 🔹
