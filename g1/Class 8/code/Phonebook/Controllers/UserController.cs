@@ -11,7 +11,7 @@ using Services;
 namespace Phonebook.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class UserController : ControllerBase
     {

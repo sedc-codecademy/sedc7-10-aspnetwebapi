@@ -12,7 +12,7 @@ using Services;
 namespace Phonebook.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace Phonebook.Controllers
             _contactService = contactService;
         }
 
-        [HttpGet("GetAllUserContacts")]
+        [HttpGet]
         public ActionResult<ICollection<ContactModel>> GetUserContacts()
         {
             int userId = GetAuthorizedUserId();
@@ -30,7 +30,7 @@ namespace Phonebook.Controllers
             return Ok(_contactService.GetUserContacts(userId).ToList());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<ContactModel> GetContact(int id)
         {
             int userId = GetAuthorizedUserId();

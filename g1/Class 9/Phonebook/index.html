@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Phonebook</title>
+</head>
+<body>
+    <h1>Phonebook</h1>
+    <hr>
+    <div id="auth">
+        <a href="#" id="loginView">Login with an existing user</a>
+        <a href="#" id="registerView">Create a new account</a>
+        <div id="loginForm">
+            <input type="text" placeholder="Username" id="loginUsername"><br />
+            <input type="password" placeholder="Password" id="loginPassword"><br />
+            <button id="login">Login</button>
+        </div>
+        <div id="registerForm" class="hidden">
+            <input type="text" placeholder="First Name" id="regFirstName"><br />
+            <input type="text" placeholder="Last Name" id="regLastName"><br />
+            <input type="text" placeholder="Username" id="regUsername"><br />
+            <input type="password" placeholder="Password" id="regPassword"><br />
+            <input type="password" placeholder="Confirm Password" id="regConfirmPassword"><br />
+            <button id="register">Register</button>
+        </div>
+    </div>
+    <div id="contactsView" class="hidden">
+        <h3>Contacts</h3>
+        <hr>
+        <table border="1">
+            <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phonenumber</th>
+                <th>Address</th>
+            </thead>
+            <tbody id="contactList">
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="./scripts/helpers.js"></script>
+    <script src="./scripts/src.js"></script>
+</body>
+</html>
