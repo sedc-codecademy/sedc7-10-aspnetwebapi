@@ -83,6 +83,16 @@ namespace Services
 
             _userRepository.Add(user);
         }
+        private static bool ValidPassword(string password)
+        {
+            var passwordRegex = new Regex("^(?=.*[0-9])(?=.*[a-z]).{6,20}$");
+            var match = passwordRegex.Match(password);
+            return match.Success;
+        }
 
+        private bool ValidUsername(string username)
+        {
+            return _userRepository.GetAll().All(x => x.Username != username);
+        }
     }
 }
