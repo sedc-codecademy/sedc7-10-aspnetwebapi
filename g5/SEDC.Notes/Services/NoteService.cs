@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using DataModels;
 using Models;
+using Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,10 @@ namespace Services
             var user = _userRepository.GetAll()
                 .FirstOrDefault(x => x.Id == model.UserId);
 
+            if (string.IsNullOrEmpty(model.Text))
+                throw new NoteException(model.Id, model.UserId,
+                    "Text field is required");
+
             var note = new NoteDto()
             {
                 Text = model.Text,
@@ -39,6 +44,10 @@ namespace Services
         {
             var note = _noteRepository.GetAll()
                 .FirstOrDefault(x => x.Id == id && x.UserId == userId);
+
+            if (note == null)
+                throw new NoteException(id, userId, "Note not found");
+
             _noteRepository.Delete(note);
         }
 
@@ -46,6 +55,10 @@ namespace Services
         {
             var note = _noteRepository.GetAll()
                 .FirstOrDefault(x => x.Id == id && x.UserId == userId);
+
+            if (note == null)
+                throw new NoteException(id, userId, "Note not found");
+
             var noteModel = new NoteModel()
             {
                 Id = note.Id,
