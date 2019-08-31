@@ -9,7 +9,7 @@ namespace SEDC.Loto3000.WebApi.Controllers
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/User")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
 
