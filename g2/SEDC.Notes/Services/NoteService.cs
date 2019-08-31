@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using DataModels;
 using Models;
+using Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace Services
         {
             var user = _userRepository.GetAll()
                 .FirstOrDefault(x => x.Id == model.UserId);
+
+            if (user == null)
+                throw new UserNotFoundException(model.UserId, "User was not found");
 
             NoteDto note = new NoteDto()
             {
