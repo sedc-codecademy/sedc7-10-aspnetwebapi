@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.Loto3000.DataLayer\SEDC.Loto3000.DataLayer.csproj" />
+    <ProjectReference Include="..\SEDC.Loto3000.Models\SEDC.Loto3000.Models.csproj" />
+  </ItemGroup>
+
+</Project>
