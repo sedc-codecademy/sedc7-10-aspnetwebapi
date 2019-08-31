@@ -10,7 +10,7 @@ namespace IssuesModels
         public IssueStatus Status { get; set; }
 
         public int ReporterID { get; set; }
-        public int AssigneeID { get; set; }
+        public int? AssigneeID { get; set; }
 
         public virtual User Reporter { get; set; }
         public virtual User Assignee { get; set; }

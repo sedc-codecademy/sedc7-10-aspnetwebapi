@@ -10,9 +10,9 @@ namespace IssuesService
 {
     public class IssuesRepository : IIssueRepository
     {
-        private IssueContext context;
+        private IIssueContext context;
 
-        public IssuesRepository(IssueContext context)
+        public IssuesRepository(IIssueContext context)
         {
             this.context = context;
         }
@@ -34,16 +34,22 @@ namespace IssuesService
 
         public IEnumerable<Issue> GetIssuesByUser(int userId, SearchField searchField)
         {
-            IEnumerable<Issue> issues = Enumerable.Empty<Issue>();
+            HashSet<Issue> issues = new HashSet<Issue>();
             if (searchField.HasFlag(SearchField.Assigned))
             {
                 var assignedIssues = context.Issues.Where(i => i.AssigneeID == userId);
-                issues = issues.Concat(assignedIssues);
+                foreach (var issue in assignedIssues)
+                {
+                    issues.Add(issue);
+                }
             }
             if (searchField.HasFlag(SearchField.Reporter))
             {
                 var reportedIssues = context.Issues.Where(i => i.ReporterID == userId);
-                issues = issues.Concat(reportedIssues);
+                foreach (var issue in reportedIssues)
+                {
+                    issues.Add(issue);
+                }
             }
             // merge the results and return
             return issues;
