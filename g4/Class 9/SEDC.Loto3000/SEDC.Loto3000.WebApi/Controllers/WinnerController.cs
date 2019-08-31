@@ -7,7 +7,7 @@ namespace SEDC.Loto3000.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Winner")]
-    public class WinnerController : Controller
+    public class WinnerController : BaseController
     {
         private readonly IWinnerService _winnerService;
 

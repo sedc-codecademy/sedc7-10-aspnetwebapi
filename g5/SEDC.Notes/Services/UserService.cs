@@ -11,6 +11,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
+using Services.Exceptions;
 
 namespace Services
 {
@@ -67,8 +69,23 @@ namespace Services
 
         public void Register(RegisterModel model)
         {
-            if (model.Password != model.ConfirmPassword) throw 
-                    new Exception("Passwords did not match!");
+            // Validations
+            if (string.IsNullOrEmpty(model.FirstName))
+                throw new UserException(null, model.Username,
+                    "First name is required");
+            if (string.IsNullOrEmpty(model.LastName))
+                throw new UserException(null, model.Username,
+                    "Last name is required");
+            if(!ValidUsername(model.Username))
+                throw new UserException(null, model.Username,
+                    "Username is already in use");
+            if(!ValidPassword(model.Password))
+                throw new UserException(null, model.Username,
+                    "Password is too weak");
+            if (model.Password != model.ConfirmPassword)
+                throw new UserException(null, model.Username, 
+                    "Passwords did not match!");
+
             var md5 = new MD5CryptoServiceProvider();
             var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
             var hashedPassword = Encoding.ASCII.GetString(md5data);

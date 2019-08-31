@@ -36,9 +36,9 @@ namespace Phonebook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(opts => opts.AddPolicy("AllowOrigins", b => b
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
+                .WithOrigins("*")
+                .WithHeaders("*")
+                .WithMethods("*")
             ));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

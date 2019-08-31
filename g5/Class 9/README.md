@@ -77,3 +77,4 @@ Most common for web development is to connect a front-end application top an API
 * [SeriLog Writing Logs](https://github.com/serilog/serilog/wiki/Writing-Log-Events)
 * [SeriLog Configuration Documentation](https://github.com/serilog/serilog/wiki/Configuration-Basics)
 * [Logging in .NET Best Practices](https://michaelscodingspot.com/logging-in-dotnet/)
+* [Regex 101](https://regex101.com/)

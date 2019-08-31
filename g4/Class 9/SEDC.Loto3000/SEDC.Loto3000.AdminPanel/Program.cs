@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using SEDC.Loto3000.ApiClient;
+using SEDC.Loto3000.ApiClient.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEDC.Loto3000.AdminPanel
 {
@@ -18,35 +13,22 @@ namespace SEDC.Loto3000.AdminPanel
             Console.Write("Please enter your email: ");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Please enter your password: ");
+            Console.Write("Please enter your password: ");
             string password = Console.ReadLine();
 
-            using (var httpClient = new HttpClient())
-            {
-                var baseAddress = @"http://localhost:60884/api";//TODO: read from appsettings
-                httpClient.BaseAddress = new Uri(baseAddress);
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var baseApiAddress = @"http://localhost:60884/api";//TODO: read from appsettings
+            ILoto3000ApiClient apiClient = new Loto3000ApiClient(baseApiAddress);//TODO: resolve this with IoC (serviceContainer)
+            string loggedUserToken = apiClient.AuthenticateAsync(email, password)
+                                            .GetAwaiter()
+                                            .GetResult();
+            if (!string.IsNullOrWhiteSpace(loggedUserToken))
+                Console.WriteLine($"You are logged in, your token: {loggedUserToken}");//TODO: read fullName from token claims
 
-                using (var httpRequestMessage =
-                            new HttpRequestMessage(HttpMethod.Post, new Uri($"{baseAddress}/user/authenticate")))
-                {
-                    var user = new { email, password };
-                    httpRequestMessage.Content =
-                        new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+            var draw = apiClient.CreateDrawAsync(loggedUserToken)
+                                .GetAwaiter()
+                                .GetResult();
 
-                    var httpResponse = httpClient.SendAsync(httpRequestMessage)
-                                                    .GetAwaiter()
-                                                    .GetResult();
-                    httpResponse.EnsureSuccessStatusCode();
-
-                    string userToken = null;
-                    if (httpResponse.Headers.TryGetValues("Authorization", out IEnumerable<string> values))
-                    {
-                        userToken = values.FirstOrDefault();
-                        Console.WriteLine("You are logged in");//TODO: read fullName from token claims
-                    }
-                }
-            }
+            Console.WriteLine($"Draw with id: {draw.Id} was created");
 
             Console.ReadLine();
         }

@@ -9,7 +9,7 @@ namespace SEDC.Loto3000.WebApi.Controllers
     [Authorize(Roles = "NotAdmin")]
     [Produces("application/json")]
     [Route("api/Ticket")]
-    public class TicketController : Controller
+    public class TicketController : BaseController
     {
         private readonly ITicketService _ticketService;
         private readonly IConfiguration _configuration;
@@ -23,7 +23,7 @@ namespace SEDC.Loto3000.WebApi.Controllers
         [HttpPost]
         public IActionResult SubmitTicket([FromBody]SubmitTicketViewModel bodyRequest)
         {
-            var addedTicket = _ticketService.SubmitTicket(bodyRequest.PickedNumbers, bodyRequest.UserEmail);
+            var addedTicket = _ticketService.SubmitTicket(bodyRequest.PickedNumbers, GetEmailOfLoggedUser());
             var apiBaseUrl = _configuration.GetValue<string>("ApiBaseUrl");
             var response = new
             {

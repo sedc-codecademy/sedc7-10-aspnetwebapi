@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 using Services;
+using Services.Exceptions;
 
 namespace Web.Api.Controllers
 {
@@ -25,27 +27,109 @@ namespace Web.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<NoteModel>> Get()
         {
-            var userId = GetAuthorizedUserId();
-            return Ok(_noteService.GetUserNotes(userId));
+            try
+            {
+                var userId = GetAuthorizedUserId();
+                return Ok(_noteService.GetUserNotes(userId));
+            }
+            catch (UserException ex)
+            {
+                Log.Error("USER {userId}.{name}: {message}",
+                    ex.UserId, ex.Name, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (NoteException ex)
+            {
+                Log.Error("NOTE {noteId} for user {userId}: {message}",
+                    ex.NoteId, ex.UserId, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UNKNOWN Error: {message}", ex.Message);
+                return BadRequest("Something went wrong. Please contact support!");
+            }
         }
         [HttpGet("{id}")]
         public ActionResult<NoteModel> Get(int id)
         {
-            var userId = GetAuthorizedUserId();
-            return Ok(_noteService.GetNote(id, userId));
+            try
+            {
+                var userId = GetAuthorizedUserId();
+                return Ok(_noteService.GetNote(id, userId));
+            }
+            catch (UserException ex)
+            {
+                Log.Error("USER {userId}.{name}: {message}",
+                    ex.UserId, ex.Name, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (NoteException ex)
+            {
+                Log.Error("NOTE {noteId} for user {userId}: {message}",
+                    ex.NoteId, ex.UserId, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UNKNOWN Error: {message}", ex.Message);
+                return BadRequest("Something went wrong. Please contact support!");
+            }
         }
 
         [HttpPost]
-        public void Post([FromBody] NoteModel model)
+        public IActionResult Post([FromBody] NoteModel model)
         {
-            model.UserId = GetAuthorizedUserId();
-            _noteService.AddNote(model);
+            try
+            {
+                model.UserId = GetAuthorizedUserId();
+                _noteService.AddNote(model);
+                return Ok("Successfully added note.");
+            }
+            catch (UserException ex)
+            {
+                Log.Error("USER {userId}.{name}: {message}",
+                    ex.UserId, ex.Name, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (NoteException ex)
+            {
+                Log.Error("NOTE {noteId} for user {userId}: {message}",
+                    ex.NoteId, ex.UserId, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UNKNOWN Error: {message}", ex.Message);
+                return BadRequest("Something went wrong. Please contact support!");
+            }
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var userId = GetAuthorizedUserId();
-            _noteService.DeleteItem(id, userId);
+            try
+            {
+                var userId = GetAuthorizedUserId();
+                _noteService.DeleteItem(id, userId);
+                return Ok("Successfully deleted note");
+            }
+            catch (UserException ex)
+            {
+                Log.Error("USER {userId}.{name}: {message}",
+                    ex.UserId, ex.Name, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (NoteException ex)
+            {
+                Log.Error("NOTE {noteId} for user {userId}: {message}",
+                    ex.NoteId, ex.UserId, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UNKNOWN Error: {message}", ex.Message);
+                return BadRequest("Something went wrong. Please contact support!");
+            }
         }
 
         private int GetAuthorizedUserId()
@@ -53,7 +137,9 @@ namespace Web.Api.Controllers
             if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?
                 .Value, out var userId))
             {
-                throw new Exception("Name identifier claim does not exist!");
+                string name = User.FindFirst(ClaimTypes.Name)?.Value;
+                throw new UserException(userId, name, 
+                    "Name identifier claim does not exist!");
             }
             return userId;
         }
