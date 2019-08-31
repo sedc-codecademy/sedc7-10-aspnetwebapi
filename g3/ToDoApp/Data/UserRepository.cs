@@ -5,54 +5,47 @@ using Microsoft.Extensions.Configuration;
 
 namespace Data
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<DtoUser>
     {
-        private readonly string _connectionString;
+        private readonly IConfiguration _configuration;
 
         public UserRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ToDoDatabase");
+            _configuration = configuration;
         }
-        public IEnumerable<User> GetAll()
+
+        public IEnumerable<DtoUser> GetAll()
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                return dbContext.Users.ToList();
+                return context.Users.ToList();
             }
         }
 
-        public User GetById(int id)
+        public void Add(DtoUser entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                return dbContext.Users.FirstOrDefault(x => x.Id == id);
+                context.Users.Add(entity);
+                context.SaveChanges();
             }
         }
 
-        public void Add(User entity)
+        public void Delete(DtoUser entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                dbContext.Users.Add(entity);
-                dbContext.SaveChanges();
+                context.Users.Remove(entity);
+                context.SaveChanges();
             }
         }
 
-        public void Delete(User entity)
+        public void Update(DtoUser entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                dbContext.Users.Remove(entity);
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void Update(User entity)
-        {
-            using (var dbContext = new ToDoAppContext(_connectionString))
-            {
-                dbContext.Users.Update(entity);
-                dbContext.SaveChanges();
+                context.Users.Update(entity);
+                context.SaveChanges();
             }
         }
     }

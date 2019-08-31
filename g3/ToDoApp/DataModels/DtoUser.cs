@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataModels
 {
-    public class User
+    public class DtoUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,6 +13,6 @@ namespace DataModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
-        public virtual ICollection<ToDoItem> Items { get; set; }
+        public virtual ICollection<DtoToDoItem> ToDoList { get; set; }
     }
 }

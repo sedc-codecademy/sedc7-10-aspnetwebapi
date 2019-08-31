@@ -5,56 +5,47 @@ using Microsoft.Extensions.Configuration;
 
 namespace Data
 {
-    public class ToDoItemRepository : IRepository<ToDoItem>
+    public class ToDoItemRepository : IRepository<DtoToDoItem>
     {
-        private readonly string _connectionString;
-
+        private readonly IConfiguration _configuration;
 
         public ToDoItemRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ToDoDatabase");
+            _configuration = configuration;
         }
 
-        public IEnumerable<ToDoItem> GetAll()
+        public IEnumerable<DtoToDoItem> GetAll()
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                return dbContext.ToDoItems.ToList();
+                return context.ToDoList.ToList();
             }
         }
 
-        public ToDoItem GetById(int id)
+        public void Add(DtoToDoItem entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                return dbContext.ToDoItems.FirstOrDefault(x => x.Id == id);
+                context.ToDoList.Add(entity);
+                context.SaveChanges();
             }
         }
 
-        public void Add(ToDoItem entity)
+        public void Delete(DtoToDoItem entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                dbContext.ToDoItems.Add(entity);
-                dbContext.SaveChanges();
+                context.ToDoList.Remove(entity);
+                context.SaveChanges();
             }
         }
 
-        public void Delete(ToDoItem entity)
+        public void Update(DtoToDoItem entity)
         {
-            using (var dbContext = new ToDoAppContext(_connectionString))
+            using (var context = new ToDoAppDbContext(_configuration.GetConnectionString("ToDoApp")))
             {
-                dbContext.ToDoItems.Remove(entity);
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void Update(ToDoItem entity)
-        {
-            using (var dbContext = new ToDoAppContext(_connectionString))
-            {
-                dbContext.ToDoItems.Update(entity);
-                dbContext.SaveChanges();
+                context.ToDoList.Update(entity);
+                context.SaveChanges();
             }
         }
     }

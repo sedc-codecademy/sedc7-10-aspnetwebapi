@@ -24,49 +24,37 @@ namespace DataModels.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ToDoItems",
+                name: "ToDoList",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Completed = table.Column<bool>(nullable: false),
-                    UserId1 = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ToDoItems", x => x.Id);
+                    table.PrimaryKey("PK_ToDoList", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ToDoItems_Users_UserId",
+                        name: "FK_ToDoList_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ToDoItems_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ToDoItems_UserId",
-                table: "ToDoItems",
+                name: "IX_ToDoList_UserId",
+                table: "ToDoList",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ToDoItems_UserId1",
-                table: "ToDoItems",
-                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ToDoItems");
+                name: "ToDoList");
 
             migrationBuilder.DropTable(
                 name: "Users");
