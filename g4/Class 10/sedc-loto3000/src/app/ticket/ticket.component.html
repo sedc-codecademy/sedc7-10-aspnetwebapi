@@ -1,0 +1,4 @@
+<div *ngFor="let n of allNumbers">
+    <input type="checkbox" (change)="pickedNumbersChanged($event)"  value="{{n}}" /> {{n}}
+</div>
+<button (click)="onSubmit()">Submit</button>
