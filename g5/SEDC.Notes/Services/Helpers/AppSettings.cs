@@ -8,5 +8,6 @@ namespace Services.Helpers
     {
         public string NoteAppConnectionString { get; set; }
         public string Secret { get; set; }
+        public string TestDataApi { get; set; }
     }
 }

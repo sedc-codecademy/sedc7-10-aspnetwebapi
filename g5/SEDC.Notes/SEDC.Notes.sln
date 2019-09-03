@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{BCCC92BE-5A3D-4012-BD97-731FBF2D7C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{E46934E1-6762-47DC-96E0-B96FDC64F46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{E46934E1-6762-47DC-96E0-B96FDC64F46D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceChecker", "PerformanceChecker\PerformanceChecker.csproj", "{92E274B8-4B5E-4C83-AA03-D79F0502FDC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E46934E1-6762-47DC-96E0-B96FDC64F46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E46934E1-6762-47DC-96E0-B96FDC64F46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E46934E1-6762-47DC-96E0-B96FDC64F46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E274B8-4B5E-4C83-AA03-D79F0502FDC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E274B8-4B5E-4C83-AA03-D79F0502FDC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E274B8-4B5E-4C83-AA03-D79F0502FDC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E274B8-4B5E-4C83-AA03-D79F0502FDC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
