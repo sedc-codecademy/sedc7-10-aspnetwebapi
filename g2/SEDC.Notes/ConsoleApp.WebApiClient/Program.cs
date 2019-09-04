@@ -1,10 +1,7 @@
-﻿using Models;
-using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using WebApiClient;
+using WebApiClient.Contracts;
 
 namespace ConsoleApp.WebApiClient
 {
@@ -18,26 +15,20 @@ namespace ConsoleApp.WebApiClient
             Console.Write("Enter password: ");
             string password = Console.ReadLine();
 
-            using (var httpClient = new HttpClient())
+            var baseUri = @"http://localhost:64500/";//TODO: read from appsettings
+            INotesWebApiClient apiClient = new NotesWebApiClient(baseUri);//TODO: resolve this using IoC
+
+            var loggedUser = await apiClient.AuthenticateAsync(username, password);
+            Console.WriteLine($"Hello {loggedUser.FullName}");
+
+            var userNotes = await apiClient.GetNotesByUserAsync(loggedUser.Token);
+            Console.WriteLine("Notes for the logged in user:");
+            foreach (var note in userNotes)
             {
-                var baseUri = @"http://localhost:64500/";
-                httpClient.BaseAddress = new Uri(baseUri);
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                using (var httpRequest = new HttpRequestMessage(HttpMethod.Post, $"{baseUri}api/users/authenticate"))
-                {
-                    var bodyRequest = new { username, password };
-                    var stringContent = JsonConvert.SerializeObject(bodyRequest);
-                    httpRequest.Content = new StringContent(stringContent, Encoding.UTF8, "application/json");
-
-                    var httpResponse = await httpClient.SendAsync(httpRequest);
-                    httpResponse.EnsureSuccessStatusCode();
-                    var responseContent = await httpResponse.Content.ReadAsStringAsync();
-                    var loggedUser = JsonConvert.DeserializeObject<UserModel>(responseContent);
-
-                    Console.WriteLine($"Hello {loggedUser.FullName}");
-                }
+                Console.WriteLine($"{note.Text}");
             }
+
+            Console.ReadLine();
                 
             
         }
