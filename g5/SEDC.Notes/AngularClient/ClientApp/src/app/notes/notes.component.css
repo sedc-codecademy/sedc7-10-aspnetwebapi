@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.header h4 {
+  margin-right: 10px;
+}
+
+.notesContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.cardCustomization {
+  width: 200px;
+  padding: 15px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.customCreateNote {
+  width: 400px;
+  margin-bottom: 20px;
+  padding: 10px;
+}

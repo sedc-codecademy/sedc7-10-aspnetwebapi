@@ -1,0 +1,57 @@
+<div class="header">
+  <h4>Welcome {{user}}</h4>
+  <button class="btn btn-primary" (click)="openCreateMode()">Create Note
+    <span *ngIf="isInCreateMode"> +</span>
+  </button>
+</div>
+
+<form [formGroup]="createNoteForm" (ngSubmit)="onSubmit()">
+  <div class="card customCreateNote" *ngIf="isInCreateMode">
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text customLable" id="basic-addon1">Text</span>
+      </div>
+      <input type="text"
+             class="form-control"
+             aria-label="Text"
+             aria-describedby="basic-addon1"
+             formControlName="text">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text customLable" id="basic-addon1">Color</span>
+      </div>
+      <input type="text"
+             class="form-control"
+             aria-label="Color"
+             aria-describedby="basic-addon1"
+             formControlName="color">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text customLable" id="basic-addon1">Tag</span>
+      </div>
+      <input type="text"
+             class="form-control"
+             aria-label="Tag"
+             aria-describedby="basic-addon1"
+             formControlName="tag">
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+
+  </div>
+</form>
+
+<div class="notesContainer">
+  <div *ngFor="let note of notes">
+    <div class="card cardCustomization">
+      <p>Category: {{resolveTag(note.tag)}}</p>
+      <p>{{note.text}}</p>
+      <button class="btn btn-danger" (click)="deleteNote(note.id)">Delete Note</button>
+    </div>
+  </div>
+</div>

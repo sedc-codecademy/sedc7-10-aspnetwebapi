@@ -29,6 +29,15 @@ namespace Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //CORS
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Configuring AppSettings section
@@ -72,6 +81,9 @@ namespace Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //CORS
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseMvc();

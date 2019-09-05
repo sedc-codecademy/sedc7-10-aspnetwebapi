@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModels.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
-    [Migration("20190822170329_init")]
+    [Migration("20190902124558_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

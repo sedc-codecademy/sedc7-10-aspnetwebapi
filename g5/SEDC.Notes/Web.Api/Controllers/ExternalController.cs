@@ -33,7 +33,7 @@ namespace Web.Api.Controllers
         public ActionResult<long> GetNotePerformance()
         {
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 _noteService.GetUserNotes(1);
             }

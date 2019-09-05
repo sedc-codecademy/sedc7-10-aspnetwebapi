@@ -1,0 +1,35 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div class="card customCardStyles">
+
+    <h2>Login</h2>
+
+    <br />
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text customLable" id="basic-addon1">Username</span>
+      </div>
+      <input type="text"
+             class="form-control"
+             aria-label="Username"
+             aria-describedby="basic-addon1"
+             formControlName="username">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text customLable" id="basic-addon1">Password</span>
+      </div>
+      <input type="password"
+             class="form-control"
+             aria-label="Password"
+             aria-describedby="basic-addon1"
+             formControlName="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary form-control">Login</button>
+
+  </div>
+
+</form>
