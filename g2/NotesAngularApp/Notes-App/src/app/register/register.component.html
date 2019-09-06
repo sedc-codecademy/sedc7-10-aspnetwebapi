@@ -1,0 +1,27 @@
+
+<form (ngSubmit)="onSubmit()" class="col-lg-5">
+    <div class="form-group">
+        <label for="registerModel.username">Username</label>
+        <input type="text" class="form-control" required [(ngModel)]="registerModel.username" name="username" />
+    </div>
+    <div class="form-group">
+        <label for="registerModel.firstName">First Name</label>
+        <input type="text" class="form-control" required [(ngModel)]="registerModel.firstName" name="firstName" />
+    </div>
+    <div class="form-group">
+        <label for="registerModel.lastName">Last Name</label>
+        <input type="text" class="form-control" required [(ngModel)]="registerModel.lastName" name="lastName" />
+    </div>
+    <div class="form-group">
+        <label for="registerModel.password">Password</label>
+        <input type="password" class="form-control" required [(ngModel)]="registerModel.password" name="password" />
+    </div>
+    <div class="form-group">
+        <label for="registerModel.confirmPassword">Confirm Password</label>
+        <input type="password" class="form-control" required [(ngModel)]="registerModel.confirmPassword"
+            name="confirmPassword" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-danger">Register</button>
+    </div>
+</form>
