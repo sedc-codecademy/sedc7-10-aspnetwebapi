@@ -35,5 +35,3 @@
  // configure api
 * check connection-string
 * configure Startup.cs
-* configure ssl in WebApi project
-* use the port from the ssl in the angular application
